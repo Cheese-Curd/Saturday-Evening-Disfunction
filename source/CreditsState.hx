@@ -48,6 +48,7 @@ class CreditsState extends MusicBeatState
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		add(bg);
 		bg.screenCenter();
+		bg.scrollFactor.set();
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -82,10 +83,11 @@ class CreditsState extends MusicBeatState
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			["SeD Team"],
-			['Eliana',				'eli',				'Programmer',													'',										'A352A0'],
-			['Laurie',				'laurie',			'Pixel Artist',													'',										'C559C8'],
-			['Koolaid',				'koolaid',			'Musician',														'',										'0094FF'],
-			['Raven',				'raven',			'Emotional Support & Vocals',									'',										'1F002D'],
+			['Eliana',				'eli',				'Programmer',													'https://cheese-curd.github.io/about-me',	'A352A0'],
+			['Laurie',				'laurie',			'Pixel Artist',													'',											'C559C8'],
+			['Koolaid',				'koolaid',			'Musician',														'',											'0094FF'],
+			['Raven',				'raven',			'Emotional Support & Vocals',									'',											'1F002D'],
+			['Chicken',				'chicken',			'chicken nugget',												'',											'FCBA03'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
@@ -197,6 +199,17 @@ class CreditsState extends MusicBeatState
 					holdTime = 0;
 				}
 
+				if (controls.UI_RIGHT) // the funny
+				{
+					persistentUpdate = false;
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+					setColor(0xFFB8FFFF);
+					setText("Congrats on finding this easter egg!\nI fixed some bugs for Elly and gave funny ideas.");
+					FlxTween.cancelTweensOf(camera.scroll);
+					FlxTween.tween(camera.scroll, {x:FlxG.width}, 0.6, {ease:FlxEase.quartOut});
+					openSubState(new AngelSubstate());
+				}
+
 				if(controls.UI_DOWN || controls.UI_UP)
 				{
 					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
@@ -256,18 +269,7 @@ class CreditsState extends MusicBeatState
 				curSelected = 0;
 		} while(unselectableCheck(curSelected));
 
-		var newColor:Int =  getCurrentBGColor();
-		if(newColor != intendedColor) {
-			if(colorTween != null) {
-				colorTween.cancel();
-			}
-			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
-				onComplete: function(twn:FlxTween) {
-					colorTween = null;
-				}
-			});
-		}
+		setColor(getCurrentBGColor());
 
 		var bullShit:Int = 0;
 
@@ -284,7 +286,12 @@ class CreditsState extends MusicBeatState
 			}
 		}
 
-		descText.text = creditsStuff[curSelected][2];
+		setText(creditsStuff[curSelected][2]);
+	}
+
+	function setText(str:String)
+	{
+		descText.text = str;
 		descText.y = FlxG.height - descText.height + offsetThing - 60;
 
 		if(moveTween != null) moveTween.cancel();
@@ -292,6 +299,21 @@ class CreditsState extends MusicBeatState
 
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
+	}
+
+	function setColor(newColor:Int)
+	{
+		if(newColor != intendedColor) {
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
+			intendedColor = newColor;
+			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+				onComplete: function(twn:FlxTween) {
+					colorTween = null;
+				}
+			});
+		}
 	}
 
 	#if MODS_ALLOWED
@@ -329,5 +351,16 @@ class CreditsState extends MusicBeatState
 
 	private function unselectableCheck(num:Int):Bool {
 		return creditsStuff[num].length <= 1;
+	}
+
+	override function closeSubState()
+	{
+		super.closeSubState();
+		persistentUpdate = true;
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		setColor(getCurrentBGColor());
+		setText(creditsStuff[curSelected][2]);
+		FlxTween.cancelTweensOf(camera.scroll);
+		FlxTween.tween(camera.scroll, {x:0}, 0.6, {ease:FlxEase.quartOut});
 	}
 }

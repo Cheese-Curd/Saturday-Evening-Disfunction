@@ -231,6 +231,14 @@ class TitleState extends MusicBeatState
 		#end
 	}
 
+	override function destroy()
+	{
+		if (ClientPrefs.mainMenuMusic == 'None') // We were literally just using the music to make sure the menu wouldn't freeze, we won't need it anymore afterwards -angel
+			FlxG.sound.music.stop();
+
+		super.destroy();
+	}
+
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
@@ -263,7 +271,7 @@ class TitleState extends MusicBeatState
 			// music.play();
 
 			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+				doMusic(false);
 			}
 		}
 
@@ -637,8 +645,7 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					//FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-					FlxG.sound.music.fadeIn(4, 0, 0.7);
+					doMusic();
 				case 2:
 					#if PSYCH_WATERMARKS
 					createCoolText(['Psych Engine by'], 15);
@@ -735,8 +742,7 @@ class TitleState extends MusicBeatState
 						skippedIntro = true;
 						playJingle = false;
 
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-						FlxG.sound.music.fadeIn(4, 0, 0.7);
+						doMusic();
 						return;
 				}
 
@@ -757,8 +763,7 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.mainMenuMusic)), 0);
-						FlxG.sound.music.fadeIn(4, 0, 0.7);
+						doMusic();
 						transitioning = false;
 					};
 				}
@@ -786,5 +791,16 @@ class TitleState extends MusicBeatState
 			}
 			skippedIntro = true;
 		}
+	}
+
+	function doMusic(?fade:Bool = true)
+	{
+		if (ClientPrefs.mainMenuMusic == "None") // shut up about my fucky solution -angel
+			FlxG.sound.playMusic(Paths.music("gettin-freaky"), 0);
+		else
+			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.mainMenuMusic)), 0);
+
+		if (fade && ClientPrefs.mainMenuMusic != "None")
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
 	}
 }
