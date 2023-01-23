@@ -159,9 +159,21 @@ class TitleState extends MusicBeatState
 
 		Highscore.load();
 
-		// IGNORE THIS!!!
-		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
+		// Get GF Information
+		if (ClientPrefs.mainMenuMusic == "None")
+		{
+			titleJSON = Json.parse(Paths.getTextFromFile('titleGf/gettin-freaky.json'));
+		}
+		else
+		{
+			var invalidChars = ~/[~&\\;:<>#]/;
+			var hideChars = ~/[.,'"%?!]/;
+	
+			var item = invalidChars.split(ClientPrefs.mainMenuMusic.replace(' ', '-')).join("-");
+			item = hideChars.split(item).join("").toLowerCase();
 
+			titleJSON = Json.parse(Paths.getTextFromFile('titleGf/' + item + '.json'));
+		}
 		#if TITLE_SCREEN_EASTER_EGG
 		if (FlxG.save.data.psychDevsEasterEgg == null) FlxG.save.data.psychDevsEasterEgg = ''; //Crash prevention
 		switch(FlxG.save.data.psychDevsEasterEgg.toUpperCase())

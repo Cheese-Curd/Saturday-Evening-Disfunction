@@ -104,7 +104,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'pauseMusic',
 			'string',
 			'Tea Time',
-			['None', 'Breakfast', 'Tea Time']);
+			['None', 'Breakfast', 'Tea Time', 'Offset Song']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 		var option:Option = new Option('Main Menu Song:',
@@ -112,7 +112,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'mainMenuMusic',
 			'string',
 			'Tom Fuckery (Beta)',
-			['None', "Gettin' Freaky",'Tom Fuckery (Beta)']);
+			['None', "Gettin' Freaky",'Tom Fuckery (Beta)', 'Offset Song']);
 		addOption(option);
 		option.onChange = onChangeMainMusic;
 		

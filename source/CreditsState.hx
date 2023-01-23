@@ -87,7 +87,7 @@ class CreditsState extends MusicBeatState
 			['Laurie',				'laurie',			'Pixel Artist',													'',											'C559C8'],
 			['Koolaid',				'koolaid',			'Musician',														'',											'0094FF'],
 			['Raven',				'raven',			'Emotional Support & Vocals',									'',											'1F002D'],
-			['Chicken',				'chicken',			'chicken nugget',												'',											'FCBA03'],
+			['Chicken',				'chicken',			'chicken nugget',												'https://twitter.com/Lord_Chicken42',		'FCBA03'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],

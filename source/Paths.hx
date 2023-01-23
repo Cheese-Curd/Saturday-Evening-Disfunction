@@ -57,8 +57,11 @@ class Paths
 
 	public static var dumpExclusions:Array<String> =
 	[
+		// Main Menu Songs
 		'assets/music/gettin-freaky.$SOUND_EXT',
 		'assets/music/tom-fuckery-(beta).$SOUND_EXT',
+		'assets/music/offset-song.$SOUND_EXT',
+		// Pause Menu Songs
 		'assets/shared/music/breakfast.$SOUND_EXT',
 		'assets/shared/music/tea-time.$SOUND_EXT',
 	];
