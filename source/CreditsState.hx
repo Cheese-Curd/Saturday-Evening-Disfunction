@@ -82,12 +82,16 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			["Song Credits"],
+			['atsuover',			'atsuover',			'PAST MY PRIME TIME Song Owner',								'https://atsuover.carrd.co/',				'F52B5C'],
+			[''],
 			["SeD Team"],
 			['Eliana',				'eli',				'Programmer',													'https://cheese-curd.github.io/about-me',	'A352A0'],
 			['Laurie',				'laurie',			'Pixel Artist',													'',											'C559C8'],
 			['Koolaid',				'koolaid',			'Musician',														'',											'0094FF'],
 			['Raven',				'raven',			'Emotional Support & Vocals',									'',											'1F002D'],
 			['Chicken',				'chicken',			'chicken nugget',												'https://twitter.com/Lord_Chicken42',		'FCBA03'],
+			['Collin',				'collin',			'Vocals',														'',											'4C1A00'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
